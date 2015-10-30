@@ -1,5 +1,4 @@
-export SERVICE_NAME="goberry"
-export SERVICE_REGISTRATION="1"
+export SERVICE_NAME="houseofcards"
 
 # To setup your development environment, run:
 # $ source dev_env

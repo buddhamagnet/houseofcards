@@ -1,2 +1,2 @@
 `go get github.com/fzipp/pythia`
-`pythia github.com/EconomistDigitalSolutions/cardshark/service`
+`pythia github.com/buddhamagnet/houseofcards`

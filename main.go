@@ -21,14 +21,12 @@ var (
 	buildstamp  string
 	githash     string
 	version     string
-	ramlFile    string
 	serviceName string
 )
 
 func init() {
 	flag.StringVar(&port, "port", ":9494", "port to listen on")
 	flag.StringVar(&version, "version", "", "output build date and commit data")
-	flag.StringVar(&ramlFile, "ramlFile", "api.raml", "RAML file to parse")
 
 	serviceName = os.Getenv("SERVICE_NAME")
 	if serviceName == "" {

@@ -54,7 +54,7 @@ func assembleRoutes() {
 			ramlFile = "api.raml"
 		}
 
-		bundle, err := GoberryBundle.Open(ramlFile)
+		bundle, err := CardBundle.Open(ramlFile)
 		if err != nil {
 			log.Fatal(err)
 		}

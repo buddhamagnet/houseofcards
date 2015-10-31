@@ -10,6 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// RouteMap links RAML display names to handlers.
 var RouteMap = map[string]http.HandlerFunc{
 	"Root":     Root,
 	"Version":  Version,
@@ -17,7 +18,7 @@ var RouteMap = map[string]http.HandlerFunc{
 	"Validate": Validate,
 }
 
-// Handler for rest URI / and the action GET
+// Root handler for rest URI / and the action GET
 func Root(w http.ResponseWriter, r *http.Request) {
 	log.Fatal("root")
 	w.Header().Set("Content-Type", "text/html")
@@ -26,7 +27,7 @@ func Root(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// Handler for rest URI /version and the action GET
+// Version handler for rest URI /version and the action GET
 func Version(w http.ResponseWriter, r *http.Request) {
 	log.Fatal("version")
 	json, _ := json.Marshal(map[string]string{
@@ -35,8 +36,7 @@ func Version(w http.ResponseWriter, r *http.Request) {
 	w.Write(json)
 }
 
-// Handler for rest URI /partner and the action GET
-// Represents all of the partners known by The Economist.
+// Partners handler for rest URI /partner and the action GET
 func Partners(w http.ResponseWriter, r *http.Request) {
 	json, _ := json.Marshal(map[string]string{
 		"message": "PartnersGET",
@@ -44,8 +44,7 @@ func Partners(w http.ResponseWriter, r *http.Request) {
 	w.Write(json)
 }
 
-// Handler for rest URI /partner/{number} and the action GET
-// Represents a partnemr membership number
+// Validate handler for rest URI /partners/{partner}/{number} and the action GET
 func Validate(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	validator, found := partners.Map[vars["partner"]]

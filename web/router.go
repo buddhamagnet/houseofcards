@@ -24,7 +24,7 @@ var (
 // NewRouter creates a mux router, sets up
 // a static handler and registers the dynamic
 // routes and middleware handlers with the mux.
-func NewRouter(ramlFile, build, hash string) *mux.Router {
+func NewRouter(build, hash string) *mux.Router {
 	buildstamp = build
 	githash = hash
 	router = mux.NewRouter().StrictSlash(true)

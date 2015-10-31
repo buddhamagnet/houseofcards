@@ -13,51 +13,9 @@ baseUri: http://mocksvc.mulesoft.com/mocks/132b6108-a362-49e5-bd48-dfbc95d33e98/
   description: build information endpoint.
   get:
     displayName: Version
-/partner:
-  description: |
-    Represents all of the partners known by The Economist.
+/partners:
   get:
-    description: |
-      Retrieve all known partners.
     displayName: Partners
-    responses:
-      200:
-        description: |
-          Successfully retrieved partners
-        body:
-          application/json:
-            example: |
-              "partners": [
-                {
-                  "id": "ISIC",
-                  "location": "{baseUri}/partners/ISIC",
-                }
-                {
-                  "user_account": "EthiopianAirlines",
-                  "location": "{baseUri}/partners/EthiopianAirlines",
-                }
-              ]
-  /{number}:
-    description: Represents a partnemr membership number
+  /{partner}/{number}:
     get:
-      description: Validate the membership number
       displayName: Validate
-      responses:
-        200:
-          description: The membership number is valid
-          body:
-            application/json:
-              example: |
-                {
-                  "number": "00012000015",
-                  "location": "{baseuri}/partners/EthiopianAirlines/00012000015"
-                }
-        400:
-          description: The membership number is invalid
-          body:
-            application/json:
-              example: |
-                {
-                  "number": "00012000016",
-                  "error": "Invalid check digit"
-                }

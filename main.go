@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/EconomistDigitalSolutions/goberry/web"
+	"github.com/buddhamagnet/houseofcards/web"
 
 	"github.com/EconomistDigitalSolutions/watchman/journal"
 	_ "github.com/EconomistDigitalSolutions/watchman/meter"
@@ -48,7 +48,7 @@ func main() {
 
 	flag.Parse()
 
-	web.NewRouter(ramlFile, buildstamp, githash)
+	web.NewRouter(buildstamp, githash)
 
 	if version != "" {
 		journal.LogChannel("build", fmt.Sprintf("build date: %s commit: %s", buildstamp, githash))

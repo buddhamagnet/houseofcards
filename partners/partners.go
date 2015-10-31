@@ -47,37 +47,38 @@ type PresenceValidator struct{}
 // Validate does the actual validation.
 func (p *PresenceValidator) Validate(card string) (int, string) {
 	if card != "" {
-		return http.StatusOK, "OK"
+		return http.StatusOK, ""
 	}
-	return http.StatusBadRequest, "BAD"
+	return http.StatusBadRequest, "missing code"
 }
 
 // NewDigitValidator returns a digit validator.
 func NewDigitValidator() *PatternValidator {
 	digits := regexp.MustCompile("^[0-9]+$")
-	return &PatternValidator{pattern: digits}
+	return &PatternValidator{pattern: digits, message: "invalid check digit"}
 }
 
 // NewDigitLengthValidator returns a digit length validator.
 func NewDigitLengthValidator(l int) *PatternValidator {
 	digitLength := regexp.MustCompile(fmt.Sprintf("^[0-9]{%d}$", l))
-	return &PatternValidator{pattern: digitLength}
+	return &PatternValidator{pattern: digitLength, message: "invalid length"}
 }
 
 // PatternValidator validates a number pattern.
 type PatternValidator struct {
 	pattern *regexp.Regexp
+	message string
 }
 
 // Validate does the actual validation.
 func (p *PatternValidator) Validate(card string) (int, string) {
 	if p.pattern.MatchString(card) {
-		return http.StatusOK, "OK"
+		return http.StatusOK, ""
 	}
-	return http.StatusBadRequest, "BAD"
+	return http.StatusBadRequest, p.message
 }
 
 // NewPatternValidator returns a pattern validator.
 func NewPatternValidator(pat string) *PatternValidator {
-	return &PatternValidator{pattern: regexp.MustCompile(pat)}
+	return &PatternValidator{pattern: regexp.MustCompile(pat), message: "invalid code"}
 }

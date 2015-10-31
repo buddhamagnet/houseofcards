@@ -1,6 +1,6 @@
 {
   "service": {
-    "name": "service",
+    "name": "houseofcards",
     "tags": ["master"],
     "address": "127.0.0.1",
     "port": 8000,

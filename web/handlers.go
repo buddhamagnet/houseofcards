@@ -52,10 +52,20 @@ func Validate(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
+	// Validate the code.
 	code, message := validator.Validate(vars["number"])
-	json, _ := json.Marshal(map[string]string{
-		"message": message,
-	})
+	response := map[string]string{
+		"number": vars["number"],
+	}
+	// Populate the map based on validity.
+	switch code {
+	case http.StatusOK:
+		response["location"] = fmt.Sprintf("/partners/%s/%s", vars["partner"], vars["number"])
+	default:
+		response["error"] = message
+	}
+	// Send it back down the wire.
+	json, _ := json.Marshal(response)
 	w.WriteHeader(code)
 	w.Write(json)
 }

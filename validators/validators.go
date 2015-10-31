@@ -1,4 +1,4 @@
-package partners
+package validators
 
 import (
 	"fmt"
@@ -70,15 +70,15 @@ type PatternValidator struct {
 	message string
 }
 
+// NewPatternValidator returns a pattern validator.
+func NewPatternValidator(pat string) *PatternValidator {
+	return &PatternValidator{pattern: regexp.MustCompile(pat), message: "invalid code"}
+}
+
 // Validate does the actual validation.
 func (p *PatternValidator) Validate(card string) (int, string) {
 	if p.pattern.MatchString(card) {
 		return http.StatusOK, ""
 	}
 	return http.StatusBadRequest, p.message
-}
-
-// NewPatternValidator returns a pattern validator.
-func NewPatternValidator(pat string) *PatternValidator {
-	return &PatternValidator{pattern: regexp.MustCompile(pat), message: "invalid code"}
 }

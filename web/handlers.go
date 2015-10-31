@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/buddhamagnet/houseofcards/partners"
+	"github.com/buddhamagnet/houseofcards/validators"
 	"github.com/gorilla/mux"
 )
 
@@ -47,7 +47,7 @@ func Partners(w http.ResponseWriter, r *http.Request) {
 // Validate handler for rest URI /partners/{partner}/{number} and the action GET
 func Validate(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	validator, found := partners.Map[vars["partner"]]
+	validator, found := validators.Map[vars["partner"]]
 	if !found {
 		w.WriteHeader(http.StatusNotFound)
 		return

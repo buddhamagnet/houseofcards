@@ -7,32 +7,32 @@ import (
 )
 
 var (
-	presenceValidator PartnerCodeValidator
-	digitValidator    PartnerCodeValidator
+	CheckPresent PartnerCodeValidator
+	CheckDigits  PartnerCodeValidator
 	// Map maps partner names to validators.
 	Map map[string]PartnerCodeValidator
 )
 
 func init() {
-	presenceValidator = new(PresenceValidator)
-	digitValidator = NewDigitValidator()
+	CheckPresent = new(PresenceValidator)
+	CheckDigits = NewDigitValidator()
 
 	Map = map[string]PartnerCodeValidator{
-		"cathaypacific":     presenceValidator,
-		"singapore":         presenceValidator,
-		"jetairways":        presenceValidator,
-		"airasia":           presenceValidator,
-		"jetairwaysindia":   digitValidator,
-		"finnair":           digitValidator,
-		"pins":              digitValidator,
-		"tapvictoria":       digitValidator,
-		"saseurobonus":      digitValidator,
-		"iberia":            digitValidator,
-		"etihad":            digitValidator,
-		"ethiopianairlines": digitValidator,
-		"accordhotels":      NewDigitLengthValidator(10),
-		"milesandmore":      NewDigitLengthValidator(15),
-		"tajhotels":         NewPatternValidator("^10101([0-9]{9}$)"),
+		"cathaypacific":     CheckPresent,
+		"singapore":         CheckPresent,
+		"jetairways":        CheckPresent,
+		"airasia":           CheckPresent,
+		"jetairwaysindia":   CheckDigits,
+		"finnair":           CheckDigits,
+		"pins":              CheckDigits,
+		"tapvictoria":       CheckDigits,
+		"saseurobonus":      CheckDigits,
+		"iberia":            CheckDigits,
+		"etihad":            CheckDigits,
+		"ethiopianairlines": CheckDigits,
+		"accordhotels":      NewAccordHotelsValidator(),
+		"milesandmore":      NewMilesAndMoreValidator(),
+		"tajhotels":         NewTajHotelsValidator(),
 	}
 }
 
@@ -81,4 +81,19 @@ func (p *PatternValidator) Validate(card string) (int, string) {
 		return http.StatusOK, ""
 	}
 	return http.StatusBadRequest, p.message
+}
+
+// NewAccordHotelsValidator returns a custom validator for Accord Hotels.
+func NewAccordHotelsValidator() *PatternValidator {
+	return NewDigitLengthValidator(10)
+}
+
+// NewMilesAndMoreValidator returns a custom validator for Miles And More.
+func NewMilesAndMoreValidator() *PatternValidator {
+	return NewDigitLengthValidator(15)
+}
+
+// NewTajHotelsValidator returns a custom validator for New Taj Hotels.
+func NewTajHotelsValidator() *PatternValidator {
+	return NewPatternValidator("^10101([0-9]{9}$)")
 }

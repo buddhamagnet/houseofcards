@@ -7,8 +7,10 @@ import (
 )
 
 var (
+	// CheckPresent validates presence of the code.
 	CheckPresent PartnerCodeValidator
-	CheckDigits  PartnerCodeValidator
+	// CheckDigits validates numericality of the code.
+	CheckDigits PartnerCodeValidator
 	// Map maps partner names to validators.
 	Map map[string]PartnerCodeValidator
 )
